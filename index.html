@@ -30,6 +30,8 @@
   .app img { width: 72px; height: 72px; border-radius: 18px; }
   .app b { font-size: 0.98rem; }
   .app a { font-size: 0.8rem; color: var(--muted); }
+  .badge { font-size: 0.72rem; font-weight: 600; color: var(--accent); background: var(--accent-soft);
+           padding: 2px 10px; border-radius: 999px; }
   .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
   .card p { margin: 4px 0; color: var(--muted); }
@@ -51,17 +53,17 @@
   <section>
     <h2>우리가 만드는 앱</h2>
     <div class="apps">
-      <div class="app"><img src="icons/mallang.png" alt=""><b>말랑 서바이버</b><a href="https://junshiva5732.github.io/mallang-privacy/">개인정보처리방침</a></div>
-      <div class="app"><img src="icons/idle_hero.png" alt=""><b>용사 키우기</b><a href="https://junshiva5732.github.io/idle-hero-privacy/privacy-policy.html">개인정보처리방침</a></div>
-      <div class="app"><img src="icons/sky_hop.png" alt=""><b>스카이 홉</b><a href="https://junshiva5732.github.io/sky-hop-privacy/privacy-policy.html">개인정보처리방침</a></div>
-      <div class="app"><img src="icons/idle_tycoon.png" alt=""><b>부자 키우기</b><a href="https://junshiva5732.github.io/idle_tycoon/privacy-policy.html">개인정보처리방침</a></div>
-      <div class="app"><img src="icons/kids_coloring.png" alt=""><b>색칠 놀이</b><a href="https://junshiva5732.github.io/kids_coloring/privacy-policy.html">개인정보처리방침</a></div>
-      <div class="app"><img src="icons/puzzle_2048.png" alt=""><b>2048 퍼즐</b><a href="https://junshiva5732.github.io/puzzle_2048/privacy-policy.html">개인정보처리방침</a></div>
-      <div class="app"><img src="icons/sudoku.png" alt=""><b>스도쿠</b><a href="https://junshiva5732.github.io/sudoku/privacy-policy.html">개인정보처리방침</a></div>
-      <div class="app"><img src="icons/daily_fortune.png" alt=""><b>오늘의 운세</b><a href="https://junshiva5732.github.io/daily_fortune/privacy-policy.html">개인정보처리방침</a></div>
-      <div class="app"><img src="icons/lotto_map.png" alt=""><b>로또 명당 지도</b><a href="https://junshiva5732.github.io/lotto_map/privacy-policy.html">개인정보처리방침</a></div>
-      <div class="app"><img src="icons/random_roulette.png" alt=""><b>랜덤 룰렛</b><a href="https://junshiva5732.github.io/random_roulette/privacy-policy.html">개인정보처리방침</a></div>
-      <div class="app"><img src="icons/random_chat.png" alt=""><b>랜덤채팅</b><a href="https://junshiva5732.github.io/random-chat-privacy/privacy-policy.html">개인정보처리방침</a></div>
+      <div class="app" data-pkg="com.moamentweave.mallangsurvivor"><img src="icons/mallang.png" alt=""><b>말랑 서바이버</b><span class="badge">출시 예정</span><a href="https://junshiva5732.github.io/mallang-privacy/">개인정보처리방침</a></div>
+      <div class="app" data-pkg="com.jun5731.idle_hero"><img src="icons/idle_hero.png" alt=""><b>용사 키우기</b><span class="badge">출시 예정</span><a href="https://junshiva5732.github.io/idle-hero-privacy/privacy-policy.html">개인정보처리방침</a></div>
+      <div class="app" data-pkg="com.jun5731.sky_hop"><img src="icons/sky_hop.png" alt=""><b>스카이 홉</b><span class="badge">출시 예정</span><a href="https://junshiva5732.github.io/sky-hop-privacy/privacy-policy.html">개인정보처리방침</a></div>
+      <div class="app" data-pkg="com.jun5731.idle_tycoon"><img src="icons/idle_tycoon.png" alt=""><b>부자 키우기</b><span class="badge">출시 예정</span><a href="https://junshiva5732.github.io/idle_tycoon/privacy-policy.html">개인정보처리방침</a></div>
+      <div class="app" data-pkg="com.jun5731.kids_coloring"><img src="icons/kids_coloring.png" alt=""><b>색칠 놀이</b><span class="badge">출시 예정</span><a href="https://junshiva5732.github.io/kids_coloring/privacy-policy.html">개인정보처리방침</a></div>
+      <div class="app" data-pkg="com.jun5731.puzzle_2048"><img src="icons/puzzle_2048.png" alt=""><b>2048 퍼즐</b><span class="badge">출시 예정</span><a href="https://junshiva5732.github.io/puzzle_2048/privacy-policy.html">개인정보처리방침</a></div>
+      <div class="app" data-pkg="com.jun5731.sudoku"><img src="icons/sudoku.png" alt=""><b>스도쿠</b><span class="badge">출시 예정</span><a href="https://junshiva5732.github.io/sudoku/privacy-policy.html">개인정보처리방침</a></div>
+      <div class="app" data-pkg="com.jun5731.daily_fortune"><img src="icons/daily_fortune.png" alt=""><b>오늘의 운세</b><span class="badge">출시 예정</span><a href="https://junshiva5732.github.io/daily_fortune/privacy-policy.html">개인정보처리방침</a></div>
+      <div class="app" data-pkg="com.jun5731.lotto_map"><img src="icons/lotto_map.png" alt=""><b>로또 명당 지도</b><span class="badge">출시 예정</span><a href="https://junshiva5732.github.io/lotto_map/privacy-policy.html">개인정보처리방침</a></div>
+      <div class="app" data-pkg="com.jun5731.random_roulette"><img src="icons/random_roulette.png" alt=""><b>랜덤 룰렛</b><span class="badge">출시 예정</span><a href="https://junshiva5732.github.io/random_roulette/privacy-policy.html">개인정보처리방침</a></div>
+      <div class="app" data-pkg="com.jun5731.random_chat"><img src="icons/random_chat.png" alt=""><b>랜덤채팅</b><span class="badge">출시 예정</span><a href="https://junshiva5732.github.io/random-chat-privacy/privacy-policy.html">개인정보처리방침</a></div>
     </div>
   </section>
 
