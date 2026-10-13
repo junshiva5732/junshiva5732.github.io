@@ -41,6 +41,24 @@
   .app a { font-size: 0.8rem; color: var(--muted); }
   .badge { font-size: 0.72rem; font-weight: 600; color: var(--accent); background: var(--accent-soft);
            padding: 2px 10px; border-radius: 999px; }
+  .channels { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .channel { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px;
+             display: flex; flex-direction: column; gap: 12px; text-decoration: none; color: var(--text);
+             transition: border-color .15s, transform .15s, box-shadow .15s; }
+  .channel:hover, .channel:focus-visible { border-color: #ff3b3b; transform: translateY(-2px);
+             box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+  .channel-top { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .yt { flex: none; width: 48px; height: 48px; border-radius: 14px; background: #ff0000;
+        display: grid; place-items: center; }
+  .yt svg { width: 22px; height: 22px; fill: #fff; margin-left: 3px; }
+  .channel-name { min-width: 0; }
+  .channel-name b { display: block; font-size: 1rem; line-height: 1.4; overflow-wrap: anywhere; }
+  .channel-name span { display: block; font-size: 0.82rem; color: var(--muted);
+                       white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .channel-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+                  padding-top: 12px; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
+  .channel-foot strong { color: var(--text); font-weight: 600; }
+  .go { color: #ff3b3b; font-weight: 600; white-space: nowrap; }
   .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
   .card p { margin: 4px 0; color: var(--muted); }
@@ -78,6 +96,33 @@
       <div class="app" data-pkg="com.jun5731.random_roulette"><img src="icons/random_roulette.png" alt=""><b>랜덤 룰렛</b><span class="badge">출시 예정</span><a href="https://junshiva5732.github.io/random_roulette/privacy-policy.html">개인정보처리방침</a></div>
       <div class="app" data-pkg="com.jun5731.random_chat"><img src="icons/random_chat.png" alt=""><b>랜덤채팅</b><span class="badge">출시 예정</span><a href="https://junshiva5732.github.io/random-chat-privacy/privacy-policy.html">개인정보처리방침</a></div>
       <div class="app" data-pkg="com.moament.dday"><img src="icons/dday.png" alt=""><b>모아 D-day</b><span class="badge">출시 예정</span><a href="https://junshiva5732.github.io/dday/privacy-policy.html">개인정보처리방침</a></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>유튜브 채널</h2>
+    <div class="channels">
+      <a class="channel" href="https://www.youtube.com/@%EC%98%A4%EB%8A%98%EC%9D%84%EB%B0%94%EA%BE%B8%EB%8A%94%EB%B6%80%EC%B2%98%EB%8B%98%EB%A7%90" target="_blank" rel="noopener">
+        <div class="channel-top">
+          <div class="yt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="channel-name"><b>오늘을바꾸는부처님말</b><span>youtube.com/@오늘을바꾸는부처님말</span></div>
+        </div>
+        <div class="channel-foot"><span>관리자 <strong>최준채</strong></span><span class="go">채널 보기 →</span></div>
+      </a>
+      <a class="channel" href="https://www.youtube.com/@Jun57321" target="_blank" rel="noopener">
+        <div class="channel-top">
+          <div class="yt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="channel-name"><b>Jun57321</b><span>youtube.com/@Jun57321</span></div>
+        </div>
+        <div class="channel-foot"><span>관리자 <strong>최준채</strong></span><span class="go">채널 보기 →</span></div>
+      </a>
+      <a class="channel" href="https://www.youtube.com/@dailybible_audio" target="_blank" rel="noopener">
+        <div class="channel-top">
+          <div class="yt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="channel-name"><b>dailybible_audio</b><span>youtube.com/@dailybible_audio</span></div>
+        </div>
+        <div class="channel-foot"><span>관리자 <strong>정가을</strong></span><span class="go">채널 보기 →</span></div>
+      </a>
     </div>
   </section>
 
