@@ -41,6 +41,16 @@
   .app a { font-size: 0.8rem; color: var(--muted); }
   .badge { font-size: 0.72rem; font-weight: 600; color: var(--accent); background: var(--accent-soft);
            padding: 2px 10px; border-radius: 999px; }
+  .games { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+  .game { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px;
+          display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px;
+          text-decoration: none; color: var(--text); transition: border-color .15s, transform .15s, box-shadow .15s; }
+  .game:hover, .game:focus-visible { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+  .game img { width: 72px; height: 72px; border-radius: 18px; }
+  .game b { font-size: 0.98rem; }
+  .game span { font-size: 0.8rem; color: var(--muted); line-height: 1.5; word-break: keep-all; }
+  .game em { margin-top: auto; font-style: normal; font-size: 0.82rem; font-weight: 600; color: #fff;
+             background: var(--accent); padding: 4px 14px; border-radius: 999px; }
   .channels { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
   .channel { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px;
              display: flex; flex-direction: column; gap: 12px; text-decoration: none; color: var(--text);
@@ -90,6 +100,20 @@
       </div>
     </div>
   </header>
+
+  <section id="play">
+    <h2>웹에서 바로 하기</h2>
+    <p class="channels-lead">설치 없이 브라우저에서 바로 즐겨 보세요. 휴대폰과 PC 모두 됩니다. 기록은 이 브라우저에 저장돼요.</p>
+    <div class="games">
+      <a class="game" href="games/fruit_merge/"><img src="icons/fruit_merge.png" alt=""><b>과일 합치기</b><span>같은 과일을 합쳐 수박까지</span><em>▶ 바로 하기</em></a>
+      <a class="game" href="games/sky_hop/"><img src="icons/sky_hop.png" alt=""><b>스카이 홉</b><span>탭 한 번으로 날아오르기</span><em>▶ 바로 하기</em></a>
+      <a class="game" href="games/puzzle_2048/"><img src="icons/puzzle_2048.png" alt=""><b>2048 퍼즐</b><span>타일을 합쳐 2048 만들기</span><em>▶ 바로 하기</em></a>
+      <a class="game" href="games/sudoku/"><img src="icons/sudoku.png" alt=""><b>스도쿠</b><span>클래식 숫자 퍼즐</span><em>▶ 바로 하기</em></a>
+      <a class="game" href="games/idle_hero/"><img src="icons/idle_hero.png" alt=""><b>용사 키우기</b><span>자동 전투 방치형 RPG</span><em>▶ 바로 하기</em></a>
+      <a class="game" href="games/idle_tycoon/"><img src="icons/idle_tycoon.png" alt=""><b>부자 키우기</b><span>탭해서 거지에서 재벌까지</span><em>▶ 바로 하기</em></a>
+      <a class="game" href="games/kids_coloring/"><img src="icons/kids_coloring.png" alt=""><b>색칠 놀이</b><span>아이들을 위한 탭 색칠</span><em>▶ 바로 하기</em></a>
+    </div>
+  </section>
 
   <section>
     <h2>우리가 만드는 앱</h2>
