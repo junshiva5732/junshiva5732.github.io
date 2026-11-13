@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>개인정보처리방침 — 모아 통역</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    margin: 0; padding: 32px 20px 64px;
+    font-family: -apple-system, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", Roboto, sans-serif;
+    line-height: 1.7; max-width: 760px; margin-inline: auto;
+    color: #1e2a3f; background: #f4f6fb;
+  }
+  @media (prefers-color-scheme: dark) { body { color: #e7ecf4; background: #14181f; } a { color: #8db8f2; } }
+  h1 { font-size: 1.7rem; margin-bottom: 4px; }
+  h2 { font-size: 1.2rem; margin-top: 40px; border-bottom: 1px solid rgba(58,74,102,.4); padding-bottom: 6px; }
+  .meta { color: #6b7a94; font-size: .9rem; margin-bottom: 32px; }
+  table { border-collapse: collapse; width: 100%; font-size: .93rem; }
+  th, td { border: 1px solid rgba(58,74,102,.4); padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: rgba(47,107,255,.12); }
+  .lang-switch { font-size: .9rem; margin-bottom: 24px; }
+  hr.sep { margin: 64px 0 40px; border: 0; border-top: 2px dashed rgba(58,74,102,.5); }
+  ul { padding-left: 20px; }
+</style>
+</head>
+<body>
+
+<p class="lang-switch"><a href="#ko">한국어</a> · <a href="#en">English</a></p>
+
+<!-- ============================================================ 한국어 -->
+<section id="ko">
+<h1>개인정보처리방침</h1>
+<p class="meta">앱 이름: <strong>모아 통역</strong> (com.moament.moa_interpreter) · 운영: 모아먼트(Moament) · 시행일: 2026년 11월 14일</p>
+
+<p>모아먼트(Moament, 이하 "회사")는 「모아 통역」(이하 "앱")을 운영하면서 「개인정보 보호법」 등 관련 법령을 지키며,
+이용자의 개인정보를 보호하기 위해 다음과 같이 개인정보처리방침을 공개합니다.</p>
+
+<h2>1. 요약</h2>
+<ul>
+  <li>회사는 이용자의 음성, 대화 내용, 이름, 연락처 등 어떤 개인정보도 <strong>회사 서버로 수집하거나 저장하지 않습니다.</strong> 회사는 이 앱을 위한 서버를 운영하지 않습니다.</li>
+  <li>회원 가입, 로그인, 광고, 분석 도구가 없습니다.</li>
+  <li>번역은 기기 안에서(ML Kit 기기 내 번역) 이루어집니다.</li>
+</ul>
+
+<h2>2. 마이크와 음성 처리</h2>
+<p>앱은 통역을 위해 <strong>마이크 권한(RECORD_AUDIO)</strong>을 사용합니다. 자동 통역을 켜거나 말하기 버튼을 누른 동안에만 마이크를 사용합니다.</p>
+<ul>
+  <li>음성은 휴대폰에 설치된 <strong>안드로이드 음성 인식 서비스</strong>(대부분의 기기에서 Google의 음성 인식 서비스)가 글자로 바꿉니다.
+      기기와 설정에 따라 이 서비스가 기기 안에서 처리하거나, Google 서버로 보내 처리할 수 있습니다.
+      이 과정은 Google의 <a href="https://policies.google.com/privacy">개인정보처리방침</a>을 따르며, 회사는 그 음성 데이터를 받거나 볼 수 없습니다.</li>
+  <li>앱은 음성 녹음 파일을 저장하지 않습니다.</li>
+  <li>받아 적은 글과 번역 결과는 화면의 대화 목록에만 잠시 보이며, 앱을 종료하거나 '대화 지우기'를 누르면 사라집니다. 기기 밖으로 보내지 않습니다.</li>
+</ul>
+
+<h2>3. 번역과 음성 출력</h2>
+<ul>
+  <li>번역은 Google ML Kit 기기 내 번역으로 휴대폰 안에서 처리합니다. 언어별 번역 모델(약 30MB)은 처음 사용할 때 Google 서버에서 내려받으며, 이때 대화 내용은 전송되지 않습니다.</li>
+  <li>언어 식별(ML Kit Language ID)도 기기 안에서 처리합니다.</li>
+  <li>번역 결과는 기기의 음성 합성(TTS) 엔진으로 읽어 줍니다. 기기 설정에 따라 Google 음성 엔진이 온라인 음성을 쓸 수 있습니다.</li>
+</ul>
+
+<h2>4. 기기에 저장하는 정보</h2>
+<table>
+  <tr><th>항목</th><th>목적</th><th>보관</th></tr>
+  <tr><td>내 언어, 상대 언어 설정, 자동 감지 후보, 말하기 속도, 마지막으로 감지한 상대 언어</td><td>다음 실행 때 설정 유지</td><td>기기 안에만 저장, 앱 삭제 시 함께 삭제</td></tr>
+</table>
+
+<h2>5. 제3자 제공 및 처리 위탁</h2>
+<p>회사는 이용자의 개인정보를 제3자에게 제공하거나 처리를 위탁하지 않습니다. 위 2·3항의 Google 서비스는 기기의 운영체제와 이용자 설정에 따라 동작하는 서비스입니다.</p>
+
+<h2>6. 아동의 개인정보</h2>
+<p>앱은 개인정보를 수집하지 않으며, 만 14세 미만 아동을 대상으로 하지 않습니다.</p>
+
+<h2>7. 이용자의 권리</h2>
+<p>안드로이드 설정에서 언제든 마이크 권한을 끌 수 있습니다. 권한을 끄면 음성 통역 기능을 쓸 수 없습니다. 앱을 삭제하면 기기에 저장된 설정도 모두 삭제됩니다.</p>
+
+<h2>8. 문의</h2>
+<p>운영: 모아먼트(Moament)<br>
+이메일: <a href="mailto:moament0929@gmail.com">moament0929@gmail.com</a><br>
+웹사이트: <a href="https://junshiva5732.github.io/">https://junshiva5732.github.io/</a></p>
+
+<h2>9. 방침의 변경</h2>
+<p>이 방침이 바뀌면 이 페이지에 시행일과 함께 알립니다.</p>
+</section>
+
+<hr class="sep">
+
+<!-- ============================================================ English -->
+<section id="en" lang="en">
+<h1>Privacy Policy</h1>
+<p class="meta">App: <strong>Moa Interpreter (모아 통역)</strong> (com.moament.moa_interpreter) · Operator: Moament · Effective: November 14, 2026</p>
+
+<h2>1. Summary</h2>
+<ul>
+  <li>Moament does <strong>not collect or store</strong> any personal data, including your voice or conversations, on its servers. We do not run any server for this app.</li>
+  <li>There is no sign-up, no login, no advertising and no analytics.</li>
+  <li>Translation runs on your device (ML Kit on-device translation).</li>
+</ul>
+
+<h2>2. Microphone and speech</h2>
+<p>The app uses the <strong>microphone permission (RECORD_AUDIO)</strong> only while automatic interpreting is on or while you press a talk button.</p>
+<ul>
+  <li>Your speech is converted to text by the <strong>Android speech recognition service</strong> installed on your phone (on most devices, Google's speech service).
+      Depending on the device and its settings, that service may process audio on the device or send it to Google's servers.
+      This is governed by <a href="https://policies.google.com/privacy">Google's Privacy Policy</a>; Moament does not receive or have access to that audio.</li>
+  <li>The app does not save audio recordings.</li>
+  <li>Transcripts and translations are shown only in the on-screen conversation and disappear when you close the app or tap "clear". They are not sent off the device by the app.</li>
+</ul>
+
+<h2>3. Translation and voice output</h2>
+<ul>
+  <li>Translation is performed on the device with Google ML Kit. Language models (about 30 MB each) are downloaded from Google the first time they are needed; your conversation is not sent during this download.</li>
+  <li>Language identification (ML Kit Language ID) also runs on the device.</li>
+  <li>Translations are read aloud by the device's text-to-speech engine, which may use online voices depending on your settings.</li>
+</ul>
+
+<h2>4. Data stored on the device</h2>
+<p>Your language settings, auto-detect candidates, speech rate and the last detected partner language are stored only on the device so the app remembers them. They are deleted when you uninstall the app.</p>
+
+<h2>5. Sharing</h2>
+<p>We do not share personal data with third parties or use any processors.</p>
+
+<h2>6. Children</h2>
+<p>The app does not collect personal data and is not directed at children under 13.</p>
+
+<h2>7. Your choices</h2>
+<p>You can turn off the microphone permission at any time in Android settings; voice interpreting will then be unavailable. Uninstalling the app deletes all of its settings.</p>
+
+<h2>8. Contact</h2>
+<p>Moament · <a href="mailto:moament0929@gmail.com">moament0929@gmail.com</a> · <a href="https://junshiva5732.github.io/">https://junshiva5732.github.io/</a></p>
+</section>
+
+</body>
+</html>
