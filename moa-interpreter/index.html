@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>모아 통역 — 말로 주고받는 양방향 통역</title>
+<meta name="description" content="외국어가 들리면 한국어로, 내 말은 상대 언어로. 브라우저에서 바로 쓰는 무료 양방향 음성 통역 — 모아먼트">
+<link rel="icon" href="../icons/moa_interpreter.png">
+<meta name="theme-color" content="#2f6bff">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="https://junshiva5732.github.io/" title="모아먼트 홈">
+      <img src="../icons/moa_interpreter.png" alt="">
+      <span><b>모아 통역</b><small>by 모아먼트</small></span>
+    </a>
+    <div class="top-actions">
+      <button id="btnClear" class="icon" title="대화 지우기" aria-label="대화 지우기" hidden>🗑</button>
+      <button id="btnSettings" class="icon" title="설정" aria-label="설정">⚙</button>
+    </div>
+  </header>
+
+  <div id="unsupported" class="unsupported" hidden>
+    <b>이 브라우저는 음성 인식을 지원하지 않아요.</b>
+    <p>Chrome, Edge(데스크톱·안드로이드) 또는 Safari(iPhone·Mac)에서 열어 주세요. Firefox는 아직 음성 인식을 지원하지 않아요.</p>
+  </div>
+
+  <div class="langbar">
+    <button id="chipMine" class="chip"><small>나</small><b id="mineLabel">🇰🇷 한국어</b></button>
+    <span class="swap">⇄</span>
+    <button id="chipPartner" class="chip"><small id="partnerCaption">상대 · 찾는 중</small><b id="partnerLabel">자동 감지</b>
+      <span id="partnerReset" class="reset" title="상대 언어 다시 찾기" hidden>↻</span></button>
+  </div>
+
+  <div class="status" id="status">
+    <div class="status-row">
+      <span class="dot" id="dot"><span id="dotIcon">🎙</span></span>
+      <b id="statusText">멈춤</b>
+      <span class="spacer"></span>
+      <span id="dlText" class="dl" hidden></span>
+    </div>
+    <div id="partial" class="partial" hidden></div>
+    <div id="notice" class="notice" hidden></div>
+  </div>
+
+  <div id="picker" class="picker" hidden>
+    <b>Tap your language · 상대방이 자기 언어를 눌러 주세요</b>
+    <div id="pickerList" class="picker-list"></div>
+  </div>
+
+  <main id="chat" class="chat">
+    <div id="empty" class="empty">
+      <div class="empty-icon">🗣️</div>
+      <h2 id="emptyTitle">자동 통역을 켜고 대화를 시작하세요</h2>
+      <p id="emptyText">외국어가 들리면 한국어로 통역해서 들려주고,<br>내 말은 상대 언어로 바꿔 말해 줘요.</p>
+    </div>
+  </main>
+
+  <footer class="controls">
+    <button id="btnAuto" class="auto">👂 자동 통역 시작</button>
+    <div class="talk">
+      <button id="btnMe" class="talkbtn"><span>🧑</span><span><b>내가 말하기</b><small id="meSub">🇰🇷 한국어</small></span></button>
+      <button id="btnPartner" class="talkbtn"><span>🙋</span><span><b>상대가 말하기</b><small id="partnerSub">🇺🇸 영어 (추정)</small></span></button>
+    </div>
+    <p class="hint">상대 버튼을 길게 누르면 언어를 고를 수 있어요 · <a href="privacy-policy.html">개인정보처리방침</a></p>
+  </footer>
+</div>
+
+<dialog id="settings">
+  <form method="dialog" class="sheet">
+    <div class="sheet-head"><h2>설정</h2><button class="icon" value="close" aria-label="닫기">✕</button></div>
+    <label class="h">내 언어</label>
+    <select id="selMine"></select>
+
+    <label class="h">상대 언어</label>
+    <div class="seg">
+      <button type="button" id="segAuto">✨ 자동 감지</button>
+      <button type="button" id="segFixed">☰ 직접 고르기</button>
+    </div>
+    <select id="selPartner" hidden></select>
+    <div id="candBox">
+      <p class="muted">자동 감지 후보 (많을수록 느려지고 헷갈릴 수 있어요)</p>
+      <div id="cands" class="cands"></div>
+    </div>
+
+    <label class="h">말하기 속도 <span id="rateVal"></span></label>
+    <input type="range" id="rate" min="0.6" max="1.6" step="0.1">
+
+    <label class="h">번역 방식</label>
+    <p id="engineInfo" class="muted"></p>
+
+    <label class="h">이 브라우저</label>
+    <p id="capInfo" class="muted"></p>
+  </form>
+</dialog>
+
+<dialog id="pickOnce">
+  <form method="dialog" class="sheet">
+    <div class="sheet-head"><h2>상대가 말할 언어</h2><button class="icon" value="close" aria-label="닫기">✕</button></div>
+    <div id="pickOnceList" class="picklist"></div>
+  </form>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>

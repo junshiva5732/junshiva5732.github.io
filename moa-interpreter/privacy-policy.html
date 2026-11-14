@@ -31,7 +31,7 @@
 <!-- ============================================================ 한국어 -->
 <section id="ko">
 <h1>개인정보처리방침</h1>
-<p class="meta">앱 이름: <strong>모아 통역</strong> (com.moament.moa_interpreter) · 운영: 모아먼트(Moament) · 시행일: 2026년 11월 14일</p>
+<p class="meta">앱 이름: <strong>모아 통역</strong> (안드로이드 앱 com.moament.moa_interpreter, 웹 버전 <a href="https://junshiva5732.github.io/moa-interpreter/">junshiva5732.github.io/moa-interpreter</a>) · 운영: 모아먼트(Moament) · 시행일: 2026년 11월 14일</p>
 
 <p>모아먼트(Moament, 이하 "회사")는 「모아 통역」(이하 "앱")을 운영하면서 「개인정보 보호법」 등 관련 법령을 지키며,
 이용자의 개인정보를 보호하기 위해 다음과 같이 개인정보처리방침을 공개합니다.</p>
@@ -41,6 +41,7 @@
   <li>회사는 이용자의 음성, 대화 내용, 이름, 연락처 등 개인정보를 <strong>회사 서버로 수집하거나 저장하지 않습니다.</strong> 회사는 이 앱을 위한 서버를 운영하지 않습니다.</li>
   <li>회원 가입, 로그인, 광고, 분석 도구가 없습니다.</li>
   <li>번역은 기기 안에서(ML Kit 기기 내 번역) 이루어집니다.</li>
+  <li>웹 버전의 차이는 아래 <a href="#ko-web">8. 웹 버전</a>에 따로 적었습니다.</li>
 </ul>
 
 <h2>2. 마이크와 음성 처리</h2>
@@ -76,12 +77,22 @@
 <h2>7. 이용자의 권리</h2>
 <p>안드로이드 설정에서 언제든 마이크 권한을 끌 수 있습니다. 권한을 끄면 음성 통역 기능을 쓸 수 없습니다. 앱을 삭제하면 기기에 저장된 설정도 모두 삭제됩니다.</p>
 
-<h2>8. 문의</h2>
+<h2 id="ko-web">8. 웹 버전 (브라우저에서 쓰는 모아 통역)</h2>
+<ul>
+  <li><strong>음성 인식:</strong> 브라우저의 음성 인식 기능(Web Speech API)을 씁니다. 브라우저에 따라 음성을 브라우저 회사의 서버로 보내 글자로 바꿀 수 있습니다(Chrome은 Google, Safari는 Apple, Edge는 Microsoft). 이 처리는 각 회사의 개인정보처리방침을 따르며, 회사는 그 음성을 받거나 볼 수 없습니다. 마이크는 이용자가 브라우저에서 허용한 뒤, 자동 통역을 켜거나 말하기 버튼을 누른 동안에만 씁니다.</li>
+  <li><strong>번역:</strong> 브라우저가 지원하면 브라우저에 내장된 기기 안 번역(Chrome Translator API)을 씁니다. 언어 모델은 처음 한 번 브라우저 회사에서 내려받으며, 이때 대화 내용은 보내지 않습니다.
+      내장 번역을 쓸 수 없으면 무료 번역 서비스 <a href="https://mymemory.translated.net/doc/privacy.php">MyMemory</a>(Translated srl)로 <strong>번역할 글자만</strong> 보냅니다. 음성은 보내지 않으며, 이용자를 알아볼 수 있는 정보도 함께 보내지 않습니다.</li>
+  <li><strong>음성 출력:</strong> 브라우저의 음성 합성 기능(speechSynthesis)으로 읽어 줍니다. 기기·브라우저 설정에 따라 온라인 음성을 쓸 수 있습니다.</li>
+  <li><strong>저장:</strong> 언어 설정과 말하기 속도 등은 이 브라우저의 저장소(localStorage)에만 저장하며, 브라우저의 사이트 데이터를 지우면 사라집니다. 대화 내용은 저장하지 않으며 페이지를 닫으면 사라집니다.</li>
+  <li>웹 버전도 회원 가입, 로그인, 광고, 분석 도구, 쿠키가 없으며, <strong>회사 서버에는 아무것도 저장하지 않습니다.</strong> 페이지는 GitHub Pages에서 제공되며, GitHub는 서비스 운영을 위해 접속 기록(IP 주소 등)을 남길 수 있습니다.</li>
+</ul>
+
+<h2>9. 문의</h2>
 <p>운영: 모아먼트(Moament)<br>
 이메일: <a href="mailto:moament0929@gmail.com">moament0929@gmail.com</a><br>
 웹사이트: <a href="https://junshiva5732.github.io/">https://junshiva5732.github.io/</a></p>
 
-<h2>9. 방침의 변경</h2>
+<h2>10. 방침의 변경</h2>
 <p>이 방침이 바뀌면 이 페이지에 시행일과 함께 알립니다.</p>
 </section>
 
@@ -90,7 +101,7 @@
 <!-- ============================================================ English -->
 <section id="en" lang="en">
 <h1>Privacy Policy</h1>
-<p class="meta">App: <strong>Moa Interpreter (모아 통역)</strong> (com.moament.moa_interpreter) · Operator: Moament · Effective: November 14, 2026</p>
+<p class="meta">App: <strong>Moa Interpreter (모아 통역)</strong> (Android app com.moament.moa_interpreter and web version <a href="https://junshiva5732.github.io/moa-interpreter/">junshiva5732.github.io/moa-interpreter</a>) · Operator: Moament · Effective: November 14, 2026</p>
 
 <h2>1. Summary</h2>
 <ul>
@@ -129,7 +140,16 @@
 <h2>7. Your choices</h2>
 <p>You can turn off the microphone permission at any time in Android settings; voice interpreting will then be unavailable. Uninstalling the app deletes all of its settings.</p>
 
-<h2>8. Contact</h2>
+<h2>8. Web version</h2>
+<ul>
+  <li><strong>Speech recognition:</strong> the web version uses the browser's speech recognition (Web Speech API). Depending on the browser, audio may be sent to the browser vendor's service to be transcribed (Google for Chrome, Apple for Safari, Microsoft for Edge), under that vendor's privacy policy. Moament does not receive that audio. The microphone is used only after you allow it in the browser and only while automatic interpreting is on or a talk button is pressed.</li>
+  <li><strong>Translation:</strong> when supported, translation runs in the browser with its built-in on-device translator (Chrome Translator API); language models are downloaded once from the browser vendor without your conversation. When that is not available, <strong>only the text to translate</strong> is sent to the free <a href="https://mymemory.translated.net/doc/privacy.php">MyMemory</a> service (Translated srl). No audio and no identifying information is sent.</li>
+  <li><strong>Voice output:</strong> the browser's speechSynthesis reads translations aloud, which may use online voices depending on your settings.</li>
+  <li><strong>Storage:</strong> language settings and speech rate are kept only in this browser's localStorage and are removed when you clear site data. Conversations are not saved and disappear when you close the page.</li>
+  <li>No sign-up, login, ads, analytics or cookies, and <strong>nothing is stored on Moament's servers.</strong> The page is served by GitHub Pages, which may keep access logs (such as IP addresses) to operate its service.</li>
+</ul>
+
+<h2>9. Contact</h2>
 <p>Moament · <a href="mailto:moament0929@gmail.com">moament0929@gmail.com</a> · <a href="https://junshiva5732.github.io/">https://junshiva5732.github.io/</a></p>
 </section>
 
