@@ -332,10 +332,15 @@ const TR = {
   async myMemory(text, from, to) {
     const code = l => (l.iso === 'zh' ? 'zh-CN' : l.iso);
     const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${code(from)}|${code(to)}`;
-    const ctl = new AbortController();
-    const timer = setTimeout(() => ctl.abort(), 10000);
+    // MyMemory 는 응답 시간이 들쭉날쭉하다(같은 요청이 2초~15초 이상). 오래 걸리면 끊고 한 번 더 보낸다.
+    const get = async ms => {
+      const c = new AbortController();
+      const tm = setTimeout(() => c.abort(), ms);
+      try { return await fetch(url, { signal: c.signal }); } finally { clearTimeout(tm); }
+    };
     try {
-      const res = await fetch(url, { signal: ctl.signal });
+      let res;
+      try { res = await get(6000); } catch (e) { if (e.name !== 'AbortError') throw e; log('mymemory slow, retry'); res = await get(9000); }
       const j = await res.json();
       if (j.quotaFinished || res.status === 429 || j.responseStatus === 429) {
         throw new Error('오늘 무료 번역 한도를 다 썼어요. 내일 다시 쓰거나, 데스크톱 Chrome(기기 안 번역)에서 열어 주세요.');
@@ -347,7 +352,7 @@ const TR = {
     } catch (e) {
       if (e.name === 'AbortError') throw new Error('번역 서버 연결이 너무 느려요. 인터넷 연결을 확인해 주세요.');
       throw e;
-    } finally { clearTimeout(timer); }
+    }
   },
   async translate(text, from, to) {
     if (from.iso === to.iso) return text;
