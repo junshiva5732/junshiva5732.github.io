@@ -39,7 +39,8 @@
 <h2>1. 요약</h2>
 <ul>
   <li>회사는 이용자의 음성, 대화 내용, 이름, 연락처 등 개인정보를 <strong>회사 서버로 수집하거나 저장하지 않습니다.</strong> 회사는 이 앱을 위한 서버를 운영하지 않습니다.</li>
-  <li>회원 가입, 로그인, 광고, 분석 도구가 없습니다.</li>
+  <li>회원 가입, 로그인, 분석 도구가 없습니다.</li>
+  <li>안드로이드 앱(1.1.0부터)은 Google AdMob 광고를 보여 주며, 이를 위해 광고 ID 등 기기 정보가 Google에 전송됩니다(아래 <a href="#ko-ads">광고</a> 참고). 웹 버전에는 광고가 없습니다.</li>
   <li>번역은 기기 안에서(ML Kit 기기 내 번역) 이루어집니다.</li>
   <li>웹 버전의 차이는 아래 <a href="#ko-web">8. 웹 버전</a>에 따로 적었습니다.</li>
 </ul>
@@ -62,6 +63,13 @@
   <li>번역 결과는 기기의 음성 합성(TTS) 엔진으로 읽어 줍니다. 기기 설정에 따라 Google 음성 엔진이 온라인 음성을 쓸 수 있습니다.</li>
 </ul>
 
+<h2 id="ko-ads">3-1. 광고 (안드로이드 앱)</h2>
+<ul>
+  <li>앱은 무료로 제공하기 위해 <strong>Google AdMob</strong> 광고(화면 위쪽 배너, 자동 통역을 멈출 때 가끔 나오는 전면 광고)를 보여 줍니다. 통역하는 동안에는 전면 광고를 띄우지 않습니다.</li>
+  <li>광고를 보여 주고 성과를 측정하며 부정 사용을 막기 위해, Google이 <strong>광고 ID</strong>, IP 주소, 기기 정보(모델·OS 버전·언어), 앱 정보, 광고와의 상호작용 정보를 수집·처리합니다. 이 정보는 Google의 <a href="https://policies.google.com/technologies/partner-sites">파트너 사이트 데이터 사용 방식</a>과 <a href="https://policies.google.com/privacy">개인정보처리방침</a>을 따릅니다. 음성과 대화 내용은 광고에 쓰이지 않으며 Google AdMob에 보내지 않습니다.</li>
+  <li>안드로이드 설정 &gt; 개인정보 보호(또는 Google) &gt; 광고에서 광고 ID를 재설정·삭제하거나 맞춤 광고를 끌 수 있습니다.</li>
+</ul>
+
 <h2>4. 기기에 저장하는 정보</h2>
 <table>
   <tr><th>항목</th><th>목적</th><th>보관</th></tr>
@@ -69,7 +77,7 @@
 </table>
 
 <h2>5. 제3자 제공 및 처리 위탁</h2>
-<p>회사는 이용자의 개인정보를 제3자에게 제공하거나 처리를 위탁하지 않습니다. 위 2·3항의 Google 서비스는 기기의 운영체제와 이용자 설정에 따라 동작하는 서비스입니다.</p>
+<p>회사는 이용자의 개인정보를 직접 수집하지 않으며 제3자에게 제공하지 않습니다. 위 2·3항의 Google 서비스는 기기의 운영체제와 이용자 설정에 따라 동작하는 서비스입니다. 광고를 위해 Google(AdMob)이 위 3-1항의 정보를 수집·처리합니다.</p>
 
 <h2>6. 아동의 개인정보</h2>
 <p>앱은 개인정보를 수집하지 않으며, 만 14세 미만 아동을 대상으로 하지 않습니다.</p>
@@ -106,7 +114,8 @@
 <h2>1. Summary</h2>
 <ul>
   <li>Moament does <strong>not collect or store</strong> any personal data, including your voice or conversations, on its servers. We do not run any server for this app.</li>
-  <li>There is no sign-up, no login, no advertising and no analytics.</li>
+  <li>There is no sign-up, no login and no analytics.</li>
+  <li>The Android app (from version 1.1.0) shows Google AdMob ads, which sends the advertising ID and other device data to Google (see <a href="#en-ads">Ads</a>). The web version has no ads.</li>
   <li>Translation runs on your device (ML Kit on-device translation).</li>
 </ul>
 
@@ -128,11 +137,18 @@
   <li>Translations are read aloud by the device's text-to-speech engine, which may use online voices depending on your settings.</li>
 </ul>
 
+<h2 id="en-ads">3-1. Ads (Android app)</h2>
+<ul>
+  <li>To keep the app free, it shows <strong>Google AdMob</strong> ads: a banner at the top and an occasional full-screen ad when you stop automatic interpreting. No full-screen ads are shown while interpreting.</li>
+  <li>To serve and measure ads and prevent fraud, Google collects and processes the <strong>advertising ID</strong>, IP address, device information (model, OS version, language), app information and ad interaction data, as described in <a href="https://policies.google.com/technologies/partner-sites">How Google uses information from sites or apps that use its services</a> and <a href="https://policies.google.com/privacy">Google's Privacy Policy</a>. Your voice and conversations are not used for ads and are not sent to Google AdMob.</li>
+  <li>You can reset or delete the advertising ID or opt out of personalized ads in Android Settings &gt; Privacy (or Google) &gt; Ads.</li>
+</ul>
+
 <h2>4. Data stored on the device</h2>
 <p>Your language settings, auto-detect candidates, speech rate and the last detected partner language are stored only on the device so the app remembers them. They are deleted when you uninstall the app.</p>
 
 <h2>5. Sharing</h2>
-<p>We do not share personal data with third parties or use any processors.</p>
+<p>Moament does not collect personal data itself and does not share it with third parties. For ads, Google (AdMob) collects and processes the data described in section 3-1.</p>
 
 <h2>6. Children</h2>
 <p>The app does not collect personal data and is not directed at children under 13.</p>
