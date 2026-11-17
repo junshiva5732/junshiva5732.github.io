@@ -38,13 +38,15 @@
          display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
   .app img { width: 72px; height: 72px; border-radius: 18px; }
   .app b { font-size: 0.98rem; }
-  .app .desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; word-break: keep-all; }
-  .btns { margin-top: auto; padding-top: 6px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
-  .btn { font-size: 0.8rem; font-weight: 600; padding: 5px 12px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+  .app .desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; word-break: keep-all; min-height: 3em;
+               display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .btns { padding-top: 4px; display: flex; flex-direction: column; align-items: center; gap: 6px; min-height: 70px; }
+  .btn { box-sizing: border-box; min-width: 108px; text-align: center; font-size: 0.8rem; font-weight: 600; line-height: 1.4;
+         padding: 5px 12px; border: 1px solid transparent; border-radius: 999px; text-decoration: none; white-space: nowrap; }
   .btn.web { color: #fff; background: var(--accent); }
   .btn.app { color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent); }
   .btn.soon { color: var(--muted); background: transparent; border: 1px dashed var(--line); font-weight: 500; }
-  .app a.pp { font-size: 0.72rem; color: var(--muted); }
+  .app a.pp { margin-top: auto; padding-top: 4px; font-size: 0.72rem; color: var(--muted); }
   .channels-lead { color: var(--muted); margin: -6px 0 18px; font-size: 0.95rem; }
   .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
@@ -84,9 +86,9 @@
       <div class="app" data-pkg="com.moament.cloud_popo"><img src="icons/cloud_popo.png" alt=""><b>구름 우체부 포포</b><span class="desc">구름 우체부와 달리는 러너 게임</span><div class="btns"><span class="btn soon">앱 출시 예정</span></div><a class="pp" href="https://junshiva5732.github.io/cloud-popo/privacy-policy.html">개인정보처리방침</a></div>
       <div class="app"><img src="https://blog-index.blog-index-worker.workers.dev/icons/Icon-192.png" alt=""><b>모아 블로그 지수</b><span class="desc">네이버 블로그 지수·포스팅 진단·키워드 분석</span><div class="btns"><a class="btn web" href="https://blog-index.blog-index-worker.workers.dev/">웹에서 하기</a></div></div>
       <div class="app"><img src="https://blog-index.blog-index-worker.workers.dev/icons/Icon-192.png" alt=""><b>체험단 모아보기</b><span class="desc">체험단 공고 모아 보기·선정 가능성 추천</span><div class="btns"><a class="btn web" href="https://blog-index.blog-index-worker.workers.dev/chehum/">웹에서 하기</a></div></div>
-      <div class="app" data-pkg="com.moament.moa_interpreter"><img src="icons/moa_interpreter.png" alt=""><b>모아 통역</b><span class="desc">외국어를 알아듣고 내 언어로 들려주는 실시간 통역</span><div class="btns"><a class="btn web" href="moa-interpreter/">웹에서 하기</a><span class="btn soon">앱 출시 예정</span></div><a class="pp" href="https://junshiva5732.github.io/moa-interpreter/privacy-policy.html">개인정보처리방침</a></div>
-      <div class="app" data-pkg="com.moament.moa_dongne"><img src="https://moa-dongne.blog-index-worker.workers.dev/icons/apple-touch-icon.png" alt=""><b>모아 동네혜택</b><span class="desc">서울 구별 무료 행사·무료 강좌·지원금 새 글 알림</span><div class="btns"><a class="btn web" href="https://moa-dongne.blog-index-worker.workers.dev/">웹에서 하기</a><span class="btn soon">앱 출시 예정</span></div><a class="pp" href="https://moa-dongne.blog-index-worker.workers.dev/privacy">개인정보처리방침</a></div>
-      <div class="app"><img src="https://moa-jiwon.blog-index-worker.workers.dev/icon.svg" alt=""><b>모아 지원사업</b><span class="desc">우리 회사가 신청할 수 있는 정부 지원사업 골라 보기</span><div class="btns"><a class="btn web" href="https://moa-jiwon.blog-index-worker.workers.dev/">웹에서 하기</a></div></div>
+      <div class="app" data-pkg="com.moament.moa_interpreter"><img src="icons/moa_interpreter.png" alt=""><b>모아 통역</b><span class="desc">외국어를 내 언어로 실시간 통역</span><div class="btns"><a class="btn web" href="moa-interpreter/">웹에서 하기</a><span class="btn soon">앱 출시 예정</span></div><a class="pp" href="https://junshiva5732.github.io/moa-interpreter/privacy-policy.html">개인정보처리방침</a></div>
+      <div class="app" data-pkg="com.moament.moa_dongne"><img src="https://moa-dongne.blog-index-worker.workers.dev/icons/apple-touch-icon.png" alt=""><b>모아 동네혜택</b><span class="desc">서울 무료 행사·강좌·지원금 알림</span><div class="btns"><a class="btn web" href="https://moa-dongne.blog-index-worker.workers.dev/">웹에서 하기</a><span class="btn soon">앱 출시 예정</span></div><a class="pp" href="https://moa-dongne.blog-index-worker.workers.dev/privacy">개인정보처리방침</a></div>
+      <div class="app"><img src="https://moa-jiwon.blog-index-worker.workers.dev/icon.svg" alt=""><b>모아 지원사업</b><span class="desc">신청할 수 있는 정부 지원사업 찾기</span><div class="btns"><a class="btn web" href="https://moa-jiwon.blog-index-worker.workers.dev/">웹에서 하기</a></div></div>
       <div class="app" data-pkg="com.moament.moa_news"><img src="https://play-lh.googleusercontent.com/0aXAikYpE67tLl64QG4kOqMpN8P35oL52wm_hjlfcFkvWz8nS5AkRi5VTnCMjkKYiuackOyk9h7HVU0OfyYR=s144" alt=""><b>모아 뉴스</b><span class="desc">관심 분야 새 뉴스 모아 보기</span><div class="btns"><a class="btn app" href="https://play.google.com/store/apps/details?id=com.moament.moa_news">앱 받기</a></div><a class="pp" href="https://moa-news.blog-index-worker.workers.dev/privacy">개인정보처리방침</a></div>
       <div class="app" data-pkg="com.moament.home_note"><img src="https://play-lh.googleusercontent.com/gnaNC3fnlzwItWlpPzk5jiFMrpxs5rcXx12rHSnWWD7eGanvR7h3bcjFeQ-Tu6TuY-X_PqM0Q-6QuXbxygflIyk=s144" alt=""><b>모아 임장노트</b><span class="desc">집 보러 다닐 때 쓰는 임장 기록장</span><div class="btns"><a class="btn app" href="https://play.google.com/store/apps/details?id=com.moament.home_note">앱 받기</a></div><a class="pp" href="https://junshiva5732.github.io/home_note-privacy/privacy-policy.html">개인정보처리방침</a></div>
       <div class="app" data-pkg="com.jun5731.daily_fortune"><img src="icons/daily_fortune.png" alt=""><b>오늘의 운세</b><span class="desc">띠별 운세와 오늘의 명언</span><div class="btns"><a class="btn app" href="https://play.google.com/store/apps/details?id=com.jun5731.daily_fortune">앱 받기</a></div><a class="pp" href="https://junshiva5732.github.io/daily_fortune/privacy-policy.html">개인정보처리방침</a></div>
