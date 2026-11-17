@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>개인정보처리방침 — 모아 회의록</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    margin: 0; padding: 32px 20px 64px;
+    font-family: -apple-system, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", Roboto, sans-serif;
+    line-height: 1.7; max-width: 760px; margin-inline: auto;
+    color: #1e2a3f; background: #f4f6fb;
+  }
+  @media (prefers-color-scheme: dark) { body { color: #e7ecf4; background: #14181f; } a { color: #8db8f2; } }
+  h1 { font-size: 1.7rem; margin-bottom: 4px; }
+  h2 { font-size: 1.2rem; margin-top: 40px; border-bottom: 1px solid rgba(58,74,102,.4); padding-bottom: 6px; }
+  .meta { color: #6b7a94; font-size: .9rem; margin-bottom: 32px; }
+  table { border-collapse: collapse; width: 100%; font-size: .93rem; }
+  th, td { border: 1px solid rgba(58,74,102,.4); padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: rgba(47,107,255,.12); }
+  .lang-switch { font-size: .9rem; margin-bottom: 24px; }
+  hr.sep { margin: 64px 0 40px; border: 0; border-top: 2px dashed rgba(58,74,102,.5); }
+  ul { padding-left: 20px; }
+</style>
+</head>
+<body>
+
+<p class="lang-switch"><a href="#ko">한국어</a> · <a href="#en">English</a></p>
+
+<!-- ============================================================ 한국어 -->
+<section id="ko">
+<h1>개인정보처리방침</h1>
+<p class="meta">앱 이름: <strong>모아 회의록</strong> (안드로이드 앱 com.moament.moa_minutes) · 운영: 모아먼트(Moament) · 시행일: 2026년 11월 17일</p>
+
+<p>모아먼트(Moament, 이하 "회사")는 「모아 회의록」(이하 "앱")을 운영하면서 「개인정보 보호법」 등 관련 법령을 지키며,
+이용자의 개인정보를 보호하기 위해 다음과 같이 개인정보처리방침을 공개합니다.</p>
+
+<h2>1. 요약</h2>
+<ul>
+  <li>회의 녹음 파일, 받아쓴 글, 회의록은 <strong>이용자의 기기 안에만 저장</strong>됩니다.</li>
+  <li>받아쓰기와 회의록 만들기를 위해 녹음 조각(30~60초)과 받아쓴 글을 회사의 처리 서버(Cloudflare Workers)로 보내지만, 서버는 처리 결과를 돌려준 뒤 <strong>오디오와 글을 저장하지 않습니다.</strong></li>
+  <li>회원 가입, 로그인, 이름·전화번호·이메일 수집이 없습니다.</li>
+  <li>무료 사용량을 나누기 위해 앱이 만든 무작위 기기 번호와 접속 IP 주소별 <strong>하루 사용량(초·횟수)</strong>만 서버에 기록합니다.</li>
+  <li>앱은 Google AdMob 광고를 보여 주며, 이를 위해 광고 ID 등 기기 정보가 Google에 전송됩니다(아래 <a href="#ko-ads">5. 광고</a> 참고).</li>
+</ul>
+
+<h2>2. 마이크와 녹음</h2>
+<ul>
+  <li>앱은 회의를 녹음하기 위해 <strong>마이크 권한(RECORD_AUDIO)</strong>을 씁니다. 이용자가 "녹음 시작"을 누른 뒤 "녹음 끝내기"를 누를 때까지만 녹음합니다.</li>
+  <li>화면이 꺼져도 녹음이 이어지도록 녹음하는 동안 알림(포그라운드 서비스)을 띄웁니다. 받아쓰기·회의록을 만드는 동안에도 같은 방식으로 알림을 띄웁니다.</li>
+  <li>녹음 파일과 이용자가 가져오거나 다른 앱에서 공유한 녹음 파일은 앱 전용 저장 공간에 복사되어 기기 안에만 보관됩니다.</li>
+</ul>
+
+<h2>3. 받아쓰기와 회의록 만들기 (서버 처리)</h2>
+<table>
+  <tr><th>보내는 것</th><th>목적</th><th>처리하는 곳</th><th>보관</th></tr>
+  <tr><td>녹음을 30~60초씩 나눈 오디오 조각(AAC)</td><td>말을 글로 받아쓰기</td><td rowspan="2">회사의 Cloudflare Workers 서버 → Cloudflare Workers AI (Whisper 음성 인식, Gemma 언어 모델)</td><td rowspan="2">저장하지 않음. 처리 후 바로 버림</td></tr>
+  <tr><td>받아쓴 글(시간 표시 포함)</td><td>제목·요약·결정사항·할 일 정리</td></tr>
+  <tr><td>앱이 처음 실행될 때 만든 무작위 기기 번호, 요청 시각, 서명값, 접속 IP 주소</td><td>무료 사용량 계산, 남용 방지</td><td>회사의 Cloudflare D1 데이터베이스</td><td>날짜·기기 번호·IP별 사용량(초, 횟수)만 기록. 7일 뒤 지움</td></tr>
+</table>
+<ul>
+  <li>Cloudflare, Inc.는 회사의 위탁을 받아 처리 서버를 운영합니다. Workers AI는 이용자의 입력을 모델 학습에 쓰지 않는다고 밝히고 있습니다(<a href="https://www.cloudflare.com/privacypolicy/">Cloudflare 개인정보처리방침</a>). 서버는 해외(Cloudflare 데이터센터)에 있을 수 있습니다.</li>
+  <li>기기 번호는 이름이나 전화번호와 연결되지 않는 무작위 값이며, 앱을 지웠다 다시 설치하면 새로 만들어집니다.</li>
+  <li>서버 오류를 고치기 위해 Cloudflare가 요청 기록(시각, 경로, 결과 코드)을 짧은 기간 남길 수 있으나, 오디오와 글 내용은 기록하지 않습니다.</li>
+</ul>
+
+<h2>4. 기기에 저장하는 정보</h2>
+<table>
+  <tr><th>항목</th><th>목적</th><th>보관</th></tr>
+  <tr><td>녹음 파일, 받아쓴 글, 회의록, 이용자가 고친 내용</td><td>회의 기록 보기·찾기·공유</td><td>기기 안에만 저장. 이용자가 지우거나 앱을 삭제하면 삭제</td></tr>
+  <tr><td>받아쓰기 언어 설정, 무작위 기기 번호</td><td>설정 유지, 사용량 계산</td><td>기기 안에만 저장. 앱 삭제 시 삭제</td></tr>
+</table>
+<p>이용자가 "공유", "복사", "파일로 저장"을 누르면 이용자가 고른 앱이나 위치로 회의록이 전달되며, 그 뒤의 처리는 해당 앱·서비스의 방침을 따릅니다.</p>
+
+<h2 id="ko-ads">5. 광고</h2>
+<ul>
+  <li>앱은 무료로 제공하기 위해 <strong>Google AdMob</strong> 광고(화면 위쪽 배너, 회의록이 완성된 뒤 처음 볼 때 가끔 나오는 전면 광고)를 보여 줍니다. 녹음 화면에는 광고가 없습니다.</li>
+  <li>광고를 보여 주고 성과를 측정하며 부정 사용을 막기 위해, Google이 <strong>광고 ID</strong>, IP 주소, 기기 정보(모델·OS 버전·언어), 앱 정보, 광고와의 상호작용 정보를 수집·처리합니다. 이 정보는 Google의 <a href="https://policies.google.com/technologies/partner-sites">파트너 사이트 데이터 사용 방식</a>과 <a href="https://policies.google.com/privacy">개인정보처리방침</a>을 따릅니다. 녹음과 회의 내용은 광고에 쓰이지 않으며 Google AdMob에 보내지 않습니다.</li>
+  <li>안드로이드 설정 &gt; 개인정보 보호(또는 Google) &gt; 광고에서 광고 ID를 재설정·삭제하거나 맞춤 광고를 끌 수 있습니다.</li>
+</ul>
+
+<h2>6. 제3자 제공</h2>
+<p>회사는 이용자의 개인정보를 제3자에게 팔거나 제공하지 않습니다. 위 3항의 Cloudflare(처리 위탁)와 5항의 Google(광고)만 해당 목적에 필요한 정보를 처리합니다.</p>
+
+<h2>7. 녹음할 때 주의할 점</h2>
+<p>다른 사람의 말을 녹음할 때는 참석자에게 녹음 사실을 알리고 동의를 받는 것이 좋습니다. 녹음과 회의록의 관리 책임은 이를 만든 이용자에게 있습니다.</p>
+
+<h2>8. 아동의 개인정보</h2>
+<p>앱은 만 14세 미만 아동을 대상으로 하지 않습니다.</p>
+
+<h2>9. 이용자의 권리</h2>
+<ul>
+  <li>앱의 각 회의 화면에서 "지우기"로 녹음과 회의록을 언제든 지울 수 있습니다. 앱을 삭제하면 기기에 저장된 모든 기록이 삭제됩니다.</li>
+  <li>서버에는 오디오·글이 남지 않으므로 따로 삭제를 요청할 내용이 없습니다. 사용량 기록 삭제를 원하면 아래 이메일로 연락해 주세요.</li>
+  <li>안드로이드 설정에서 언제든 마이크·알림 권한을 끌 수 있습니다. 마이크 권한을 끄면 앱에서 녹음할 수 없지만, 파일 가져오기는 쓸 수 있습니다.</li>
+</ul>
+
+<h2>10. 문의</h2>
+<p>운영: 모아먼트(Moament)<br>
+이메일: <a href="mailto:moament0929@gmail.com">moament0929@gmail.com</a><br>
+웹사이트: <a href="https://junshiva5732.github.io/">https://junshiva5732.github.io/</a></p>
+
+<h2>11. 방침의 변경</h2>
+<p>이 방침이 바뀌면 이 페이지에 시행일과 함께 알립니다.</p>
+</section>
+
+<hr class="sep">
+
+<!-- ============================================================ English -->
+<section id="en" lang="en">
+<h1>Privacy Policy</h1>
+<p class="meta">App: <strong>Moa Minutes (모아 회의록)</strong> (Android app com.moament.moa_minutes) · Operator: Moament · Effective: November 17, 2026</p>
+
+<h2>1. Summary</h2>
+<ul>
+  <li>Recordings, transcripts and meeting notes are <strong>stored only on your device</strong>.</li>
+  <li>To transcribe and summarize, the app sends 30–60 second audio pieces and the transcript text to our processing server (Cloudflare Workers). The server returns the result and <strong>does not store the audio or text</strong>.</li>
+  <li>There is no sign-up or login, and we do not collect your name, phone number or email.</li>
+  <li>To share the free daily allowance fairly, the server records only <strong>daily usage (seconds, counts)</strong> per random app-generated device number and IP address, kept for 7 days.</li>
+  <li>The app shows Google AdMob ads, which sends the advertising ID and other device data to Google.</li>
+</ul>
+
+<h2>2. Microphone and recording</h2>
+<p>The app uses the <strong>microphone permission (RECORD_AUDIO)</strong> only between "Start recording" and "Stop recording". While recording or processing, a notification (foreground service) is shown so the work can continue with the screen off. Recordings, and audio files you import or share to the app, are copied into the app's private storage on your device.</p>
+
+<h2>3. Server processing</h2>
+<p>Audio pieces (AAC) are transcribed by Cloudflare Workers AI (Whisper) and the transcript is summarized by a language model (Gemma) on Cloudflare Workers AI, operated on our behalf by Cloudflare, Inc. Neither audio nor text is stored after processing. Cloudflare states that Workers AI does not use customer inputs to train models (<a href="https://www.cloudflare.com/privacypolicy/">Cloudflare Privacy Policy</a>). Servers may be located outside Korea.</p>
+
+<h2>4. Ads</h2>
+<p>The app shows Google AdMob ads (a banner at the top and an occasional full-screen ad when you first open a finished meeting note; no ads on the recording screen). Google collects the advertising ID, IP address, device and app information and ad interaction data as described in <a href="https://policies.google.com/technologies/partner-sites">How Google uses information from sites or apps that use its services</a>. Recordings and meeting content are never sent to AdMob. You can reset the advertising ID or opt out of personalized ads in Android settings.</p>
+
+<h2>5. Your choices</h2>
+<p>You can delete any meeting in the app at any time; uninstalling deletes everything stored by the app. You can revoke microphone and notification permissions in Android settings. For questions or to request deletion of usage records, contact <a href="mailto:moament0929@gmail.com">moament0929@gmail.com</a>.</p>
+
+<h2>6. Changes</h2>
+<p>We will post any changes on this page with a new effective date.</p>
+</section>
+
+</body>
+</html>
