@@ -34,20 +34,17 @@
   section { padding: 28px 0; border-top: 1px solid var(--line); }
   h2 { font-size: 1.25rem; margin: 0 0 16px; }
   .apps { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
-  .apps > .app { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px;
+  .app { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px;
          display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
-  .apps > .app img { width: 72px; height: 72px; border-radius: 18px; }
-  .apps > .app b { font-size: 0.98rem; }
-  .apps > .app .desc { flex: 1; font-size: 0.8rem; color: var(--muted); line-height: 1.5; word-break: keep-all; }
-  /* 버튼 자리 고정: 1줄 '웹에서 하기', 2줄 '앱 받기/출시 예정' — 카드마다 같은 높이에 놓이게 */
-  .btns { padding-top: 6px; display: grid; grid-template-rows: 30px 30px; row-gap: 6px; justify-items: center; }
-  .btn { box-sizing: border-box; height: 30px; display: inline-flex; align-items: center;
-         font-size: 0.8rem; font-weight: 600; padding: 0 14px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
-  .btn.web { grid-row: 1; color: #fff; background: var(--accent); }
-  .btn.app { grid-row: 2; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent); }
-  .btn.soon { grid-row: 2; color: var(--muted); background: transparent; border: 1px dashed var(--line); font-weight: 500; }
-  .apps > .app a.pp { display: block; height: 18px; line-height: 18px; font-size: 0.72rem; color: var(--muted); }
-  .apps > .app:not(:has(a.pp))::after { content: ""; display: block; height: 18px; }
+  .app img { width: 72px; height: 72px; border-radius: 18px; }
+  .app b { font-size: 0.98rem; }
+  .app .desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; word-break: keep-all; }
+  .btns { margin-top: auto; padding-top: 6px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+  .btn { font-size: 0.8rem; font-weight: 600; padding: 5px 12px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+  .btn.web { color: #fff; background: var(--accent); }
+  .btn.app { color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent); }
+  .btn.soon { color: var(--muted); background: transparent; border: 1px dashed var(--line); font-weight: 500; }
+  .app a.pp { font-size: 0.72rem; color: var(--muted); }
   .channels-lead { color: var(--muted); margin: -6px 0 18px; font-size: 0.95rem; }
   .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
