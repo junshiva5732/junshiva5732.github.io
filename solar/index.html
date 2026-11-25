@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>모아 태양광 예보</title>
+<meta name="description" content="내 태양광 설비의 내일 발전량을 날씨 예보로 미리 계산하고, 실제 발전량이 크게 떨어지면 고장을 의심해 알려 주는 시연판">
+<style>
+:root { --bg:#f6f5ef; --card:#fffdf8; --text:#1f2421; --muted:#5d6660; --line:#e4e1d6; --sun:#f2a516; --sun-ink:#1f2421; --green:#2e8b57; --red:#c73e3e; --bar:#f2a516; --bar2:#8fb8a0; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#141714; --card:#1d211d; --text:#eceee9; --muted:#a6ada7; --line:#2d332e; --bar2:#4f7a62; } }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR","Malgun Gothic",sans-serif; }
+#app { max-width:860px; margin:0 auto; padding:16px; }
+h1 { font-size:1.35rem; margin:4px 0 4px; }
+.sub { color:var(--muted); margin:0 0 16px; font-size:.92rem; }
+.box { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px; margin-bottom:14px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; }
+label { display:flex; flex-direction:column; gap:6px; font-size:.88rem; color:var(--muted); }
+input, select { font:inherit; padding:10px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--text); }
+button { font:inherit; font-weight:700; border:0; border-radius:12px; padding:12px 18px; background:var(--sun); color:var(--sun-ink); cursor:pointer; }
+.kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; }
+.kpi { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px; }
+.kpi b { display:block; font-size:1.6rem; }
+.kpi span { color:var(--muted); font-size:.85rem; }
+.chart { display:flex; align-items:flex-end; gap:3px; height:180px; padding-top:8px; }
+.chart div { flex:1; background:var(--bar); border-radius:4px 4px 0 0; min-height:1px; position:relative; }
+.hours { display:flex; gap:3px; font-size:.7rem; color:var(--muted); }
+.hours span { flex:1; text-align:center; }
+table { width:100%; border-collapse:collapse; font-size:.92rem; }
+td, th { padding:8px 6px; border-bottom:1px solid var(--line); text-align:left; }
+.ok { color:var(--green); font-weight:700; } .bad { color:var(--red); font-weight:700; }
+.note { color:var(--muted); font-size:.8rem; line-height:1.6; }
+</style>
+</head>
+<body>
+<div id="app">
+  <h1>☀️ 모아 태양광 예보</h1>
+  <p class="sub">설비 용량과 위치만 넣으면 내일·모레 발전량과 수익을 날씨 예보로 미리 계산해요. 실제 발전량을 넣으면 고장 의심도 알려 줘요.</p>
+
+  <div class="box grid">
+    <label>지역<select id="region"></select></label>
+    <label>설비 용량 (kW)<input id="kw" type="number" value="99" min="1" step="1"></label>
+    <label>패널 방향<select id="dir"><option value="1">정남향</option><option value="0.95">남동·남서</option><option value="0.85">동·서</option></select></label>
+    <label>kWh당 판매 단가 (원)<input id="price" type="number" value="" placeholder="예: 직접 입력"></label>
+    <label>&nbsp;<button id="go">예보 보기</button></label>
+  </div>
+
+  <div id="out" style="display:none">
+    <div class="kpis" id="kpis"></div>
+    <div class="box">
+      <b id="chartTitle">내일 시간별 예상 발전량</b>
+      <div class="chart" id="chart"></div>
+      <div class="hours" id="hours"></div>
+    </div>
+    <div class="box">
+      <b>고장 의심 점검</b>
+      <p class="note">어제 실제 발전량(인버터나 한전 앱에서 확인)을 넣으면, 어제 날씨로 계산한 값과 비교해요. 70% 아래로 떨어지면 패널 오염·그늘·인버터 고장을 의심해요.</p>
+      <div class="grid"><label>어제 실제 발전량 (kWh)<input id="actual" type="number" placeholder="예: 320"></label><label>&nbsp;<button id="check">비교하기</button></label></div>
+      <p id="checkOut" style="font-size:1.05rem"></p>
+    </div>
+    <div class="box">
+      <b>날짜별 예상</b>
+      <table id="days"></table>
+    </div>
+  </div>
+  <p class="note">계산 방식: 예보된 수평면 일사량 × 설비 용량 × 성능계수 0.8 × 방향 보정, 기온이 25℃를 넘으면 1℃당 0.4% 감소. 날씨 자료는 Open-Meteo 무료 예보(시연용). 실제 서비스는 기상청 단기예보(공공데이터포털)로 바꿀 예정이에요. 시연판이라 실제 발전량과 차이가 날 수 있어요.</p>
+</div>
+<script>
+'use strict';
+const REGIONS = [
+  ['서울', 37.57, 126.98], ['울산', 35.54, 129.31], ['부산', 35.18, 129.08], ['인천', 37.46, 126.71], ['대전', 36.35, 127.38],
+  ['광주', 35.16, 126.85], ['대구', 35.87, 128.60], ['세종', 36.48, 127.29], ['강원 강릉', 37.75, 128.88], ['충북 청주', 36.64, 127.49],
+  ['충남 당진', 36.89, 126.63], ['전북 군산', 35.97, 126.74], ['전남 신안', 34.83, 126.35], ['전남 해남', 34.57, 126.60], ['경북 영천', 35.97, 128.94],
+  ['경남 창원', 35.23, 128.68], ['제주', 33.50, 126.53],
+];
+const $ = id => document.getElementById(id);
+$('region').innerHTML = REGIONS.map((r, i) => `<option value="${i}">${r[0]}</option>`).join('');
+$('region').value = 1;
+try { const s = JSON.parse(localStorage.getItem('solar') || '{}'); if (s.r != null) $('region').value = s.r; if (s.kw) $('kw').value = s.kw; if (s.p) $('price').value = s.p; if (s.d) $('dir').value = s.d; } catch {}
+let data = null;
+function pv(ghi, temp, kw, dir) { const t = temp > 25 ? 1 - (temp - 25) * 0.004 : 1; return Math.max(0, ghi / 1000 * kw * 0.8 * dir * t); }
+async function load() {
+  const [name, lat, lon] = REGIONS[$('region').value];
+  const kw = +$('kw').value || 0, dir = +$('dir').value, price = +$('price').value || 0;
+  try { localStorage.setItem('solar', JSON.stringify({ r: $('region').value, kw, p: price || '', d: dir })); } catch {}
+  $('go').textContent = '불러오는 중…';
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=shortwave_radiation,temperature_2m,cloud_cover&timezone=Asia%2FSeoul&past_days=1&forecast_days=4`;
+  try { data = await fetch(url).then(r => r.json()); } catch { $('go').textContent = '예보 보기'; alertBox('날씨 예보를 불러오지 못했어요. 인터넷 연결을 확인해 주세요.'); return; }
+  $('go').textContent = '예보 보기';
+  const h = data.hourly; const byDay = {};
+  h.time.forEach((t, i) => { const d = t.slice(0, 10); (byDay[d] = byDay[d] || []).push({ hr: +t.slice(11, 13), kwh: pv(h.shortwave_radiation[i], h.temperature_2m[i], kw, dir), cloud: h.cloud_cover[i] }); });
+  const days = Object.keys(byDay).sort();
+  const today = new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 10);
+  const yIdx = days.indexOf(today) - 1, tm = days[days.indexOf(today) + 1];
+  const sum = d => byDay[d].reduce((a, b) => a + b.kwh, 0);
+  const avgCloud = d => Math.round(byDay[d].filter(x => x.hr >= 9 && x.hr <= 16).reduce((a, b) => a + b.cloud, 0) / 8);
+  const won = v => price ? Math.round(v * price).toLocaleString() + '원' : '—';
+  const tKwh = sum(tm);
+  $('kpis').innerHTML = `
+    <div class="kpi"><span>내일 예상 발전량 (${name})</span><b>${tKwh.toFixed(0)} kWh</b></div>
+    <div class="kpi"><span>내일 예상 수익${price ? '' : ' (단가를 넣으면 표시)'}</span><b>${won(tKwh)}</b></div>
+    <div class="kpi"><span>발전 시간 (용량 대비)</span><b>${kw ? (tKwh / kw).toFixed(1) : '-'} 시간</b></div>
+    <div class="kpi"><span>내일 낮 평균 구름</span><b>${avgCloud(tm)}%</b></div>`;
+  const hrs = byDay[tm].filter(x => x.hr >= 5 && x.hr <= 20), mx = Math.max(...hrs.map(x => x.kwh), 0.001);
+  $('chart').innerHTML = hrs.map(x => `<div title="${x.hr}시 ${x.kwh.toFixed(1)}kWh" style="height:${(x.kwh / mx * 100).toFixed(1)}%"></div>`).join('');
+  $('hours').innerHTML = hrs.map(x => `<span>${x.hr}</span>`).join('');
+  $('days').innerHTML = '<tr><th>날짜</th><th>예상 발전량</th><th>예상 수익</th><th>낮 구름</th></tr>' + days.filter(d => d >= tm).map(d => `<tr><td>${d.slice(5).replace('-', '/')}</td><td>${sum(d).toFixed(0)} kWh</td><td>${won(sum(d))}</td><td>${avgCloud(d)}%</td></tr>`).join('');
+  data._y = yIdx >= 0 ? sum(days[yIdx]) : null;
+  $('out').style.display = 'block'; $('checkOut').textContent = '';
+}
+function alertBox(t) { $('checkOut').textContent = t; $('out').style.display = 'block'; }
+$('go').onclick = load;
+$('check').onclick = () => {
+  const a = +$('actual').value; if (!data || data._y == null || !a) { $('checkOut').textContent = '어제 실제 발전량을 넣어 주세요.'; return; }
+  const r = a / data._y;
+  $('checkOut').innerHTML = `어제 날씨로 계산한 값은 <b>${data._y.toFixed(0)} kWh</b>, 실제는 <b>${a} kWh</b> (${Math.round(r * 100)}%). ` +
+    (r < 0.7 ? '<span class="bad">⚠️ 많이 낮아요. 패널 오염, 그늘, 인버터 고장을 점검해 보세요.</span>' : r < 0.85 ? '<span>조금 낮아요. 며칠 더 지켜보세요.</span>' : '<span class="ok">정상 범위예요.</span>');
+};
+window.__solar = { pv, load };
+load();
+</script>
+</body>
+</html>

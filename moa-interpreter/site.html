@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>모아 통역 현장 모드</title>
+<meta name="description" content="반장이 한국어로 말하면 외국인 근로자 여러 명에게 각자 말로 바로 보여 주고 읽어 주는 현장 통역">
+<link rel="icon" href="icon.png">
+<style>
+:root { --bg:#f3f5f9; --card:#fff; --text:#1b1e26; --muted:#5f6779; --line:#dfe3ec; --accent:#ff7a1a; --accent-ink:#1b1e26; --blue:#2f6bff; --danger:#d93636; --soft:#fff1e6; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#111319; --card:#1b1e27; --text:#eceef3; --muted:#a3a9b8; --line:#2b303c; --accent:#ff8f3d; --soft:#3a2615; } }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR","Malgun Gothic",sans-serif; }
+#app { max-width:900px; margin:0 auto; padding:12px 16px 120px; }
+header { display:flex; align-items:center; gap:12px; padding:8px 0 12px; }
+header img { width:40px; height:40px; border-radius:10px; }
+header b { font-size:1.15rem; display:block; }
+header span { font-size:.85rem; color:var(--muted); }
+.box { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px; margin-bottom:12px; }
+.box h2 { font-size:1rem; margin:0 0 10px; }
+.chips { display:flex; flex-wrap:wrap; gap:8px; }
+.chip { border:1px solid var(--line); background:var(--card); color:var(--text); border-radius:999px; padding:8px 12px; font-size:.95rem; cursor:pointer; }
+.chip.on { background:var(--blue); border-color:var(--blue); color:#fff; }
+.phr { border:1px solid var(--line); background:var(--soft); color:var(--text); border-radius:12px; padding:10px 12px; font-size:.98rem; cursor:pointer; text-align:left; }
+.phr.danger { border-color:var(--danger); }
+#said { font-size:1.4rem; font-weight:700; min-height:1.6em; word-break:keep-all; }
+#partial { color:var(--muted); min-height:1.3em; }
+#cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px; display:flex; flex-direction:column; gap:8px; }
+.card .lang { display:flex; justify-content:space-between; align-items:center; font-size:.9rem; color:var(--muted); }
+.card .tx { font-size:1.45rem; line-height:1.45; font-weight:600; min-height:2em; }
+.card .back { font-size:.9rem; color:var(--muted); }
+.card .row { display:flex; gap:8px; }
+.sm { border:1px solid var(--line); background:var(--bg); color:var(--text); border-radius:10px; padding:8px 10px; font-size:.9rem; cursor:pointer; }
+.reply { margin-top:4px; padding:8px 10px; border-radius:10px; background:#e9f0ff; color:#1b2b55; font-size:1rem; display:none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .reply { background:#1f2a44; color:#dfe7ff; } }
+.dock { position:fixed; left:0; right:0; bottom:0; background:var(--card); border-top:1px solid var(--line); padding:12px 16px calc(12px + env(safe-area-inset-bottom)); display:flex; gap:12px; justify-content:center; align-items:center; }
+#mic { border:0; background:var(--accent); color:var(--accent-ink); font-size:1.2rem; font-weight:800; border-radius:999px; padding:16px 28px; cursor:pointer; min-width:220px; }
+#mic.on { background:var(--danger); color:#fff; }
+label.tg { font-size:.9rem; color:var(--muted); display:flex; gap:6px; align-items:center; }
+.note { font-size:.82rem; color:var(--muted); line-height:1.6; }
+.warn { background:#fff4dd; color:#6b4a00; border-radius:12px; padding:10px 12px; font-size:.9rem; display:none; margin-bottom:12px; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header><img src="icon.png" alt=""><div><b>모아 통역 · 현장 모드</b><span>반장 한 명이 말하면, 근로자 각자의 말로</span></div></header>
+  <div id="warn" class="warn"></div>
+
+  <div class="box">
+    <h2>받는 사람 언어 (여러 개 고르기)</h2>
+    <div id="langs" class="chips"></div>
+  </div>
+
+  <div class="box">
+    <h2>안전 지시 바로 보내기</h2>
+    <div id="phrases" class="chips"></div>
+  </div>
+
+  <div class="box">
+    <div class="note">방금 한 말</div>
+    <div id="said">아래 버튼을 누르고 한국어로 말하세요</div>
+    <div id="partial"></div>
+  </div>
+
+  <div id="cards"></div>
+
+  <p class="note">현장 용어(족장, 시마이, 취부 등)는 번역 전에 알기 쉬운 말로 바꿔서 보냅니다. 번역은 무료 기계 번역이라 틀릴 수 있어요. 생명과 관련된 지시는 실제 현장에 쓰기 전에 원어민 검수가 필요합니다. (시연판)</p>
+</div>
+
+<div class="dock">
+  <button id="mic">🎤 한국어로 말하기</button>
+  <label class="tg"><input type="checkbox" id="auto" checked> 차례로 읽어 주기</label>
+</div>
+
+<script>
+'use strict';
+const LANGS = [
+  { code:'vi', name:'베트남어', native:'Tiếng Việt', flag:'🇻🇳', stt:'vi-VN', mm:'vi' },
+  { code:'th', name:'태국어', native:'ไทย', flag:'🇹🇭', stt:'th-TH', mm:'th' },
+  { code:'uz', name:'우즈베크어', native:"Oʻzbekcha", flag:'🇺🇿', stt:'uz-UZ', mm:'uz' },
+  { code:'ne', name:'네팔어', native:'नेपाली', flag:'🇳🇵', stt:'ne-NP', mm:'ne' },
+  { code:'id', name:'인도네시아어', native:'Bahasa Indonesia', flag:'🇮🇩', stt:'id-ID', mm:'id' },
+  { code:'si', name:'싱할라어(스리랑카)', native:'සිංහල', flag:'🇱🇰', stt:'si-LK', mm:'si' },
+  { code:'my', name:'미얀마어', native:'မြန်မာ', flag:'🇲🇲', stt:'my-MM', mm:'my' },
+  { code:'km', name:'크메르어(캄보디아)', native:'ខ្មែរ', flag:'🇰🇭', stt:'km-KH', mm:'km' },
+  { code:'tl', name:'필리핀어', native:'Filipino', flag:'🇵🇭', stt:'fil-PH', mm:'tl' },
+  { code:'mn', name:'몽골어', native:'Монгол', flag:'🇲🇳', stt:'mn-MN', mm:'mn' },
+  { code:'ru', name:'러시아어', native:'Русский', flag:'🇷🇺', stt:'ru-RU', mm:'ru' },
+  { code:'zh', name:'중국어', native:'中文', flag:'🇨🇳', stt:'zh-CN', mm:'zh-CN' },
+  { code:'en', name:'영어', native:'English', flag:'🇺🇸', stt:'en-US', mm:'en' },
+];
+const L = Object.fromEntries(LANGS.map(l => [l.code, l]));
+const PHRASES = [
+  { t:'즉시 작업을 멈추세요.', d:1 },
+  { t:'지금 바로 대피하세요.', d:1 },
+  { t:'크레인 아래로 들어가지 마세요.', d:1 },
+  { t:'안전모와 안전대를 꼭 착용하세요.', d:1 },
+  { t:'밀폐공간에 들어가기 전에 산소 농도를 측정하세요.', d:1 },
+  { t:'화기 작업 주변의 불에 타는 물건을 치우세요.', d:1 },
+  { t:'다친 사람이 있으면 바로 알려 주세요.', d:1 },
+  { t:'족장 위에서는 뛰지 마세요.', d:1 },
+  { t:'휴식 시간입니다. 물을 충분히 마시세요.', d:0 },
+  { t:'오늘 작업은 여기까지입니다. 수고하셨습니다.', d:0 },
+];
+// 조선소에서 흔히 쓰는 현장 말 → 기계 번역이 알아듣는 말
+const GLOSSARY = [
+  ['족장', '비계(높은 곳의 작업 발판)'], ['아시바', '비계(높은 곳의 작업 발판)'], ['시마이', '작업 마무리'], ['데모도', '보조 작업자'],
+  ['취부', '용접 전 부재 맞추기'], ['가우징', '용접부 깎아내기'], ['빠루', '쇠지렛대'], ['오사마리', '마무리 작업'],
+  ['안전대', '추락 방지용 안전벨트'], ['곤도라', '고소 작업대'], ['샤클', '연결 고리(샤클)'], ['신호수', '크레인 신호를 보내는 사람'],
+  ['밀폐공간', '환기가 안 되는 좁은 공간'], ['화기 작업', '용접이나 절단처럼 불꽃이 나는 작업'], ['블록 탑재', '배 조각(블록)을 크레인으로 올려 붙이는 작업'],
+];
+function plain(ko) { let s = ko; for (const [a, b] of GLOSSARY) s = s.split(a).join(b); return s; }
+
+const $ = id => document.getElementById(id);
+const store = { get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} } };
+let selected = store.get('site.langs', ['vi', 'th', 'uz', 'ne', 'id']);
+const cache = store.get('site.cache', {});
+function warn(t) { const w = $('warn'); w.textContent = t; w.style.display = t ? 'block' : 'none'; }
+
+function decode(s) { const t = document.createElement('textarea'); t.innerHTML = s; return t.value; }
+async function mt(text, a, b) {
+  const key = a + '>' + b + ':' + text;
+  if (cache[key]) return cache[key];
+  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${a}|${b}`;
+  const ctrl = new AbortController(); const tm = setTimeout(() => ctrl.abort(), 9000);
+  try {
+    const j = await fetch(url, { signal: ctrl.signal }).then(r => r.json());
+    const tt = j && j.responseData && j.responseData.translatedText || '';
+    if (j.responseStatus == 429 || /MYMEMORY WARNING|QUOTA/i.test(tt + (j.responseDetails || ''))) { warn('오늘 무료 번역 사용량을 다 썼어요. 내일 다시 써 주세요. 이미 번역한 안전 지시는 계속 쓸 수 있어요.'); return null; }
+    if (j.responseStatus != 200 || !tt) return null;
+    const out = decode(tt); cache[key] = out; store.set('site.cache', cache); return out;
+  } catch { warn('번역 서버에 연결하지 못했어요. 인터넷 연결을 확인해 주세요.'); return null; }
+  finally { clearTimeout(tm); }
+}
+
+let voices = [];
+function loadVoices() { try { voices = speechSynthesis.getVoices(); } catch {} }
+if ('speechSynthesis' in window) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
+function voiceFor(code) {
+  const tag = L[code].stt.toLowerCase(), base = tag.split('-')[0];
+  const n = v => v.lang.replace('_', '-').toLowerCase();
+  const list = voices.filter(v => n(v) === tag || n(v).split('-')[0] === base || (code === 'tl' && n(v).startsWith('fil')));
+  return list.find(v => /google/i.test(v.name)) || list[0] || null;
+}
+function say(text, code) {
+  return new Promise(res => {
+    if (!('speechSynthesis' in window) || !text) return res(false);
+    const v = voiceFor(code); if (!v) return res(false);
+    const u = new SpeechSynthesisUtterance(text); u.voice = v; u.lang = L[code].stt; u.rate = .95;
+    const t = setTimeout(() => res(true), Math.max(4000, text.length * 220));
+    u.onend = u.onerror = () => { clearTimeout(t); res(true); };
+    speechSynthesis.speak(u);
+  });
+}
+
+function renderLangs() {
+  $('langs').innerHTML = LANGS.map(l => `<button class="chip ${selected.includes(l.code) ? 'on' : ''}" data-c="${l.code}">${l.flag} ${l.name}</button>`).join('');
+  $('langs').querySelectorAll('.chip').forEach(b => b.onclick = () => {
+    const c = b.dataset.c; selected = selected.includes(c) ? selected.filter(x => x !== c) : [...selected, c];
+    store.set('site.langs', selected); renderLangs(); renderCards();
+  });
+}
+function renderCards() {
+  $('cards').innerHTML = selected.map(c => { const l = L[c]; return `
+    <div class="card" id="card-${c}">
+      <div class="lang"><span>${l.flag} ${l.name} · ${l.native}</span><span id="v-${c}">${voiceFor(c) ? '🔊' : '글자만'}</span></div>
+      <div class="tx" id="tx-${c}">—</div>
+      <div class="back" id="bk-${c}"></div>
+      <div class="row"><button class="sm" data-say="${c}">🔊 다시 듣기</button><button class="sm" data-ans="${c}">🎤 근로자 답하기</button></div>
+      <div class="reply" id="rp-${c}"></div>
+    </div>`; }).join('');
+  $('cards').querySelectorAll('[data-say]').forEach(b => b.onclick = () => { const c = b.dataset.say; say($('tx-' + c).textContent, c); });
+  $('cards').querySelectorAll('[data-ans]').forEach(b => b.onclick = () => answer(b.dataset.ans));
+}
+function renderPhrases() {
+  $('phrases').innerHTML = PHRASES.map((p, i) => `<button class="phr ${p.d ? 'danger' : ''}" data-i="${i}">${p.d ? '⚠️ ' : ''}${p.t}</button>`).join('');
+  $('phrases').querySelectorAll('.phr').forEach(b => b.onclick = () => broadcast(PHRASES[b.dataset.i].t));
+}
+
+let busy = 0;
+async function broadcast(ko) {
+  const my = ++busy; warn('');
+  $('said').textContent = ko; $('partial').textContent = '';
+  const src = plain(ko);
+  selected.forEach(c => { $('tx-' + c).textContent = '번역 중…'; $('bk-' + c).textContent = ''; $('rp-' + c).style.display = 'none'; });
+  const results = await Promise.all(selected.map(async c => {
+    const out = await mt(src, 'ko', L[c].mm);
+    if (my !== busy) return null;
+    $('tx-' + c).textContent = out || '(번역 실패)';
+    return out ? [c, out] : null;
+  }));
+  if (my !== busy || !$('auto').checked) return;
+  try { speechSynthesis.cancel(); } catch {}
+  for (const r of results) { if (!r || my !== busy) continue; const card = $('card-' + r[0]); card.style.borderColor = 'var(--accent)'; await say(r[1], r[0]); card.style.borderColor = ''; }
+}
+
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let rec = null;
+function listen(lang, onFinal, onPartial, onEnd) {
+  if (!SR) { warn('이 브라우저는 음성 인식을 지원하지 않아요. 안드로이드 크롬이나 PC 크롬에서 열어 주세요.'); onEnd && onEnd(); return; }
+  try { rec && rec.abort(); } catch {}
+  rec = new SR(); rec.lang = lang; rec.interimResults = true; rec.maxAlternatives = 1;
+  let fin = '';
+  rec.onresult = e => { let p = ''; for (const r of e.results) { if (r.isFinal) fin = r[0].transcript; else p += r[0].transcript; } onPartial && onPartial(fin || p); };
+  rec.onerror = e => { if (e.error === 'not-allowed') warn('마이크 권한을 허용해 주세요.'); };
+  rec.onend = () => { rec = null; onEnd && onEnd(); if (fin.trim()) onFinal(fin.trim()); };
+  rec.start();
+}
+$('mic').onclick = () => {
+  if (rec) { try { rec.stop(); } catch {} return; }
+  try { speechSynthesis.cancel(); } catch {}
+  $('mic').classList.add('on'); $('mic').textContent = '■ 듣는 중 (누르면 끝)';
+  listen('ko-KR', t => broadcast(t), p => $('partial').textContent = p, () => { $('mic').classList.remove('on'); $('mic').textContent = '🎤 한국어로 말하기'; });
+};
+function answer(c) {
+  const rp = $('rp-' + c); rp.style.display = 'block'; rp.textContent = '듣는 중… (' + L[c].native + ')';
+  listen(L[c].stt, async t => {
+    rp.textContent = t + ' → 번역 중…';
+    const ko = await mt(t, L[c].mm, 'ko');
+    rp.textContent = `${t}\n→ ${ko || '(번역 실패)'}`; rp.style.whiteSpace = 'pre-wrap';
+  }, p => rp.textContent = p + ' …', () => { if (rp.textContent.startsWith('듣는 중')) rp.textContent = '못 알아들었어요. 다시 눌러 주세요.'; });
+}
+
+renderLangs(); renderCards(); renderPhrases();
+if ('speechSynthesis' in window) speechSynthesis.onvoiceschanged = () => { loadVoices(); selected.forEach(c => { const e = $('v-' + c); if (e) e.textContent = voiceFor(c) ? '🔊' : '글자만'; }); };
+window.__site = { broadcast, plain, cache };
+</script>
+</body>
+</html>
